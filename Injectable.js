@@ -10,6 +10,12 @@ function Injectable(name, val, type) {
         injectable.type = TYPE_VAR;
     }
 
+    if(injectable.type === TYPE_FACTORY) {
+        if(typeof val !== 'function') {
+            throw new TypeError("Value for factory injectable must be a function");
+        }
+    }
+
     this.isVariable = function () {
         return (injectable.type === TYPE_VAR)
     };
@@ -28,5 +34,13 @@ function Injectable(name, val, type) {
 
     return this;
 }
+
+Injectable.bindVariable = function(name, val) {
+    return new Injectable(name, val);
+};
+
+Injectable.bindFactory = function(name, val) {
+    return new Injectable(name, val, "factory");
+};
 
 module.exports = Injectable;
