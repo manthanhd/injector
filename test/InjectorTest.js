@@ -19,7 +19,7 @@ describe("Injector", function () {
 
         var testInjector = new Injector();
         try {
-            testInjector.inject(undefined, undefined);
+            testInjector.injectAndExecute(undefined, undefined);
         } catch (e) {
             return expect(e).toBeA(TypeError);
         }
@@ -41,7 +41,7 @@ describe("Injector", function () {
             done();
         };
 
-        testInjector.inject(testFunction);
+        testInjector.injectAndExecute(testFunction);
     });
 
     it("injects variable from child scope", function (done) {
@@ -59,7 +59,7 @@ describe("Injector", function () {
             done();
         };
 
-        testInjector.inject(testFunction, childScope);
+        testInjector.injectAndExecute(testFunction, childScope);
     });
 
     it("throws ReferenceError when suitable injectable is not found for injection", function () {
@@ -71,7 +71,7 @@ describe("Injector", function () {
         };
 
         try {
-            testInjector.inject(testFunction);
+            testInjector.injectAndExecute(testFunction);
         } catch (e) {
             if (e instanceof ReferenceError) {
                 return expect(e).toExist();
@@ -102,7 +102,7 @@ describe("Injector", function () {
             done();
         };
 
-        testInjector.inject(testFunction);
+        testInjector.injectAndExecute(testFunction);
     });
 
     it("executes factory method from childScope and injects the result", function (done) {
@@ -124,7 +124,7 @@ describe("Injector", function () {
             done();
         };
 
-        testInjector.inject(testFunction, childScope);
+        testInjector.injectAndExecute(testFunction, childScope);
     });
 
     it("injects dependencies into factory method from rootScope and injects the result on invoking function dependent on the factory method.", function (done) {
@@ -148,7 +148,7 @@ describe("Injector", function () {
             done();
         };
 
-        testInjector.inject(testFunction);
+        testInjector.injectAndExecute(testFunction);
     });
 
     it("injects dependencies from child scope into factory method from rootScope and injects the result on invoking function dependent on the factory method.", function (done) {
@@ -174,6 +174,6 @@ describe("Injector", function () {
         var childScope = new InjectorScope();
         childScope.add(new Injectable("id", 123));
 
-        testInjector.inject(testFunction, childScope);
+        testInjector.injectAndExecute(testFunction, childScope);
     });
 });

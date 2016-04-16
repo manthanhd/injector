@@ -35,11 +35,11 @@ function Injectable(name, val, type) {
     return this;
 }
 
-Injectable.bindVariable = function(name, val) {
+Injectable.newVariable = function(name, val) {
     return new Injectable(name, val);
 };
 
-Injectable.bindFactory = function(name, val) {
+Injectable.newFactory = function(name, val) {
     return new Injectable(name, val, "factory");
 };
 

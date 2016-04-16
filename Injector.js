@@ -17,7 +17,7 @@ function Injector(initialScope) {
         return result;
     };
 
-    this.inject = function (fn, scope) {
+    this.injectAndExecute = function (fn, scope) {
         if (scope && !(scope instanceof InjectorScope)) {
             throw new TypeError("scope must be of type InjectorScope.");
         }
@@ -36,7 +36,7 @@ function Injector(initialScope) {
             }
 
             if (injectable.isFactory()) {
-                injectable = this.inject(injectable.getValue(), scope);
+                injectable = this.injectAndExecute(injectable.getValue(), scope);
                 injectables.push(injectable);
                 continue;
             }
@@ -45,6 +45,17 @@ function Injector(initialScope) {
         }
 
         return fn.apply(fn, injectables);
+    };
+
+    this.inject = function(fn, scope) {
+        var self = this;
+        return function() {
+            self.injectAndExecute(fn, scope);
+        }
+    };
+
+    this.bind = function(injectable) {
+        return rootScope.add(injectable);
     };
 
     return this;

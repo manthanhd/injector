@@ -25,10 +25,10 @@ describe("Injectable", function () {
         expect(testInjectable.isFactory()).toBe(true);
     });
 
-    it("creates new factory injectable on bindFactory", function () {
+    it("creates new factory injectable on newFactory", function () {
         var Injectable = require("../Injectable");
 
-        var testInjectable = Injectable.bindFactory("name", function () {
+        var testInjectable = Injectable.newFactory("name", function () {
         });
         expect(testInjectable.isFactory()).toBe(true);
     });
@@ -37,7 +37,7 @@ describe("Injectable", function () {
         var Injectable = require("../Injectable");
 
         try {
-            var testInjectable = Injectable.bindFactory("name", "not a function");
+            var testInjectable = Injectable.newFactory("name", "not a function");
         } catch (e) {
             return expect(e).toBeA(TypeError);
         }
@@ -45,10 +45,10 @@ describe("Injectable", function () {
         expect(false).toBe(true);
     });
 
-    it("creates new variable injectable on bindFactory", function () {
+    it("creates new variable injectable on newVariable", function () {
         var Injectable = require("../Injectable");
 
-        var testInjectable = Injectable.bindVariable("name", "Manthan");
+        var testInjectable = Injectable.newVariable("name", "Manthan");
         expect(testInjectable.isVariable()).toBe(true);
     });
 });
