@@ -1,0 +1,15 @@
+{
+  "name": "injector",
+  "version": "1.0.0",
+  "description": "Dependency injection for JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Manthan Dave <manthanhd@live.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "expect": "^1.16.0",
+    "mocha": "^2.4.5"
+  }
+}
