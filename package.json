@@ -6,6 +6,10 @@
   "scripts": {
     "test": "mocha"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manthanhd/injector.git"
+  },
   "author": "Manthan Dave <manthanhd@live.com>",
   "license": "MIT",
   "devDependencies": {
