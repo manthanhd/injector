@@ -16,8 +16,14 @@ var InjectorScope = require("injector").InjectorScope;
 // create your injector
 var myInjector = new Injector();
 
-// bind an injectable
-myInjector.bind(new Injectable("name", "Manthan"));
+// bind an injectable variable
+myInjector.bind(Injectable.newVariable("name", "Manthan"));
+
+// or bind a factory function
+var getDate = function() {
+    return new Date();
+};
+myInjector.bind(Injectable.newFactory("date", getDate));
 
 // enable native injection
 Injector.enableNativeInjection(myInjector);
@@ -27,7 +33,7 @@ var printName = function(name) {
     console.log("Hello %s!", name);
 };
 
-// OR directly execute without any parameters
+// execute without any parameters
 printName.ix();
 ```
 
