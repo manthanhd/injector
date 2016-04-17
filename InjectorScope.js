@@ -1,10 +1,10 @@
 function InjectorScope() {
     var Injectable = require('./Injectable');
 
-    this.injectees = {};
+    var injectees = {};
 
     this.get = function (name) {
-        return this.injectees[name];
+        return injectees[name];
     };
 
     this.add = function (injectable) {
@@ -12,7 +12,7 @@ function InjectorScope() {
             throw new TypeError("injectable is not of type Injectable.");
         }
 
-        this.injectees[injectable.getName()] = injectable;
+        injectees[injectable.getName()] = injectable;
     };
 
     return this;
