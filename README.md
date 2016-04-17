@@ -161,6 +161,16 @@ Required. Must be a function.
 ##### Parameter: **scope**
 Optional. If provided, must be of type `InjectorScope`. Throws `TypeError` otherwise.
 
+#### Injector.enableNativeInjection(injector)
+Enables native injection for all functions at once for the specified `injector`. Adds two methods i() and ix() to all native functions.
+**i()**
+Returns prepared functions with everything injected in and ready to go.
+**ix()**
+Injects required parameters and executes the function.
+
+##### Parameter: **injector**
+Required. Must be an injector.
+
 ### InjectorScope()
 Defines a new `InjectorScope` instance.
 
