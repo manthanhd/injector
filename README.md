@@ -1,6 +1,8 @@
 # injector
 Dependency injection for JavaScript.
 
+[![Build Status](https://travis-ci.org/manthanhd/injector.svg?branch=master)](https://travis-ci.org/manthanhd/injector)
+
 ## Introduction
 Working across multiple stacks, I've found dependency injection a blessing in strongly typed languages like Java. This module provides just that. A simple and clean dependency framework for people to use with JavaScript.
 There are basic two things to injection. The **where** and the **how**. Where specifies what function to do the injection in and **how** specifies how to inject something in. As of now, the library supports two kinds of injections. Injection using a static variable and injection using a factory function. Using a static variable, the framework will inject the value of required variable straightaway. However, when using factory functions, injection will resolve the factory function and its dependencies first, execute the factory function and then inject the return value from that factory function. The framework takes care of this out of the box so you don't have to worry.
@@ -169,10 +171,10 @@ Optional. If provided, must be of type `InjectorScope`. Throws `TypeError` other
 
 #### Injector.enableNativeInjection(injector)
 Enables native injection for all functions at once for the specified `injector`. Adds two methods i() and ix() to all native functions.
-**i()**
-Returns prepared functions with everything injected in and ready to go.
-**ix()**
-Injects required parameters and executes the function.
+**i(scope)**
+Returns prepared functions with everything injected in and ready to go. Accepts an optional child scope as `scope`. `scope` must be of type `InjectorScope`.
+**ix(scope)**
+Injects required parameters and executes the function. Accepts an optional child scope as `scope`. `scope` must be of type `InjectorScope`.
 
 ##### Parameter: **injector**
 Required. Must be an injector.
