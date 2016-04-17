@@ -227,5 +227,25 @@ describe("Injector", function () {
         };
 
         testFunction.ix();
-    })
+    });
+
+    it("adds functions i() and ix() on enabling native mode", function() {
+        var Injector = require('../Injector');
+
+        var testInjector = new Injector();
+        Injector.enableNativeInjection(testInjector);
+
+        var testAnonFunction = function() {
+
+        };
+
+        function TestFunc() {
+
+        }
+
+        expect(testAnonFunction.i).toExist();
+        expect(TestFunc.i).toExist();
+        expect(testAnonFunction.ix).toExist();
+        expect(TestFunc.ix).toExist();
+    });
 });
