@@ -51,7 +51,7 @@ function Injector(initialScope) {
         var self = this;
         return function() {
             self.injectAndExecute(fn, scope);
-        }
+        };
     };
 
     this.bind = function(injectable) {
