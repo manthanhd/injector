@@ -176,4 +176,56 @@ describe("Injector", function () {
 
         testInjector.injectAndExecute(testFunction, childScope);
     });
+
+    it("does nth degree factory injection in native mode with child scope", function(done) {
+        var Injector = require('../Injector');
+        var InjectorScope = require('../InjectorScope');
+        var Injectable = require('../Injectable');
+
+        var getProfile = function (id) {
+            return {id: id, name: "Manthan"};
+        };
+
+        var rootScope = new InjectorScope();
+        rootScope.add(new Injectable("profile", getProfile, "factory"));
+
+        var testInjector = new Injector(rootScope);
+        Injector.enableNativeInjection(testInjector);
+
+        var testFunction = function (profile) {
+            expect(profile.name).toBe("Manthan");
+            expect(profile.id).toBe(123);
+            done();
+        };
+
+        var childScope = new InjectorScope();
+        childScope.add(new Injectable("id", 123));
+
+        testFunction.ix(childScope);
+    });
+
+    it("does nth degree factory injection in native mode without child scope", function(done) {
+        var Injector = require('../Injector');
+        var InjectorScope = require('../InjectorScope');
+        var Injectable = require('../Injectable');
+
+        var getProfile = function (id) {
+            return {id: id, name: "Manthan"};
+        };
+
+        var rootScope = new InjectorScope();
+        rootScope.add(new Injectable("profile", getProfile, "factory"));
+        rootScope.add(new Injectable("id", 123));
+
+        var testInjector = new Injector(rootScope);
+        Injector.enableNativeInjection(testInjector);
+
+        var testFunction = function (profile) {
+            expect(profile.name).toBe("Manthan");
+            expect(profile.id).toBe(123);
+            done();
+        };
+
+        testFunction.ix();
+    })
 });
