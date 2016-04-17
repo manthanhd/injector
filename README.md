@@ -5,7 +5,33 @@ Dependency injection for JavaScript.
 Working across multiple stacks, I've found dependency injection a blessing in strongly typed languages like Java. This module provides just that. A simple and clean dependency framework for people to use with JavaScript.
 There are basic two things to injection. The **where** and the **how**. Where specifies what function to do the injection in and **how** specifies how to inject something in. As of now, the library supports two kinds of injections. Injection using a static variable and injection using a factory function. Using a static variable, the framework will inject the value of required variable straightaway. However, when using factory functions, injection will resolve the factory function and its dependencies first, execute the factory function and then inject the return value from that factory function. The framework takes care of this out of the box so you don't have to worry.
 
-## Usage
+## Quick start
+Using the native mode is the quickest way to get started.
+```javascript
+// Require function definitions
+var Injector = require("injector").Injector;
+var Injectable = require("injector").Injectable;
+var InjectorScope = require("injector").InjectorScope;
+
+// create your injector
+var myInjector = new Injector();
+
+// bind an injectable
+myInjector.bind(new Injectable("name", "Manthan"));
+
+// enable native injection
+Injector.enableNativeInjection(myInjector);
+
+// define your function that you want to use injection on
+var printName = function(name) {
+    console.log("Hello %s!", name);
+};
+
+// OR directly execute without any parameters
+printName.ix();
+```
+
+## Full usage guide
 ### Install and setup
 Setup is quick and simple. To install the module in your project, do:
 ```shell

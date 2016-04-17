@@ -63,11 +63,11 @@ function Injector(initialScope) {
 
 Injector.enableNativeInjection = function(injector) {
     Function.prototype.i = function(scope) {
-        injector.inject(this, scope);
+        return injector.inject(this, scope);
     };
 
     Function.prototype.ix = function(scope) {
-        injector.injectAndExecute(this, scope);
+        return injector.injectAndExecute(this, scope);
     };
 };
 
