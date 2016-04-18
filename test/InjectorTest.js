@@ -248,4 +248,69 @@ describe("Injector", function () {
         expect(testAnonFunction.ix).toExist();
         expect(TestFunc.ix).toExist();
     });
+
+    it("caches value when factory caching is turned on", function(done) {
+        var Injector = require('../Injector');
+        var InjectorScope = require('../InjectorScope');
+        var Injectable = require('../Injectable');
+
+        var testInjector = new Injector();
+
+        testInjector.bind(Injectable.newVariable("name", "Manthan"));
+
+        var getDate = function() {
+            return new Date();
+        };
+        testInjector.bind(Injectable.newFactory("date", getDate).makeCacheable());
+
+        Injector.enableNativeInjection(testInjector);
+
+        var printName = function(date) {
+            return date;
+        };
+
+        var date = printName.ix();
+
+        return setTimeout(function() {
+            var date2 = printName.ix();
+            expect(date).toExist();
+            expect(date2).toExist();
+            expect(date).toBe(date2);
+            done();
+        }, 1200);
+    });
+
+    it("does not cache value when caching is turned off", function(done) {
+        var Injector = require('../Injector');
+        var InjectorScope = require('../InjectorScope');
+        var Injectable = require('../Injectable');
+
+        var testInjector = new Injector();
+
+        testInjector.bind(Injectable.newVariable("name", "Manthan"));
+
+        var getDate = function() {
+            return new Date();
+        };
+        var myInjectable = Injectable.newFactory("date", getDate);
+        testInjector.bind(myInjectable);
+
+        Injector.enableNativeInjection(testInjector);
+
+        var printName = function(date) {
+            return date;
+        };
+
+        expect(myInjectable.isCacheable()).toBe(false);
+
+        var date = printName.ix();
+
+        return setTimeout(function() {
+            var date2 = printName.ix();
+            expect(date).toExist();
+            expect(date2).toExist();
+            expect(date).toNotBe(date2);
+            done();
+        }, 1200);
+    });
 });

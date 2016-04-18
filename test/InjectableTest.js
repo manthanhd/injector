@@ -51,4 +51,18 @@ describe("Injectable", function () {
         var testInjectable = Injectable.newVariable("name", "Manthan");
         expect(testInjectable.isVariable()).toBe(true);
     });
+
+    it("turns on caching when calling makeCacheable", function() {
+        var Injectable = require("../Injectable");
+
+        var testInjectable = Injectable.newVariable("name", "Manthan").makeCacheable();
+        expect(testInjectable.isCacheable()).toBe(true);
+    });
+
+    it("has caching off by default", function() {
+        var Injectable = require("../Injectable");
+
+        var testInjectable = Injectable.newVariable("name", "Manthan");
+        expect(testInjectable.isCacheable()).toBe(false);
+    })
 });

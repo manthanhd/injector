@@ -36,8 +36,16 @@ function Injector(initialScope) {
             }
 
             if (injectable.isFactory()) {
-                injectable = this.injectAndExecute(injectable.getValue(), scope);
-                injectables.push(injectable);
+                var injectableValue;
+
+                if(!injectable.isCacheable() || (injectable.isCacheable() === true && injectable.getCacheValue() === undefined)) {
+                    injectableValue = this.injectAndExecute(injectable.getValue(), scope);
+                    injectable.setCacheValue(injectableValue);
+                } else if(injectable.isCacheable()) {
+                    injectableValue = injectable.getCacheValue();
+                }
+
+                injectables.push(injectableValue);
                 continue;
             }
 

@@ -2,7 +2,7 @@ function Injectable(name, val, type) {
     var TYPE_VAR = 'var';
     var TYPE_FACTORY = 'factory';
 
-    var injectable = {name: name, val: val};
+    var injectable = {name: name, val: val, caching: false, cacheValue: undefined};
 
     if (type) {
         injectable.type = (type === TYPE_VAR || type === TYPE_FACTORY) ? type : TYPE_VAR;
@@ -24,12 +24,29 @@ function Injectable(name, val, type) {
         return (injectable.type === TYPE_FACTORY)
     };
 
+    this.isCacheable = function() {
+        return injectable.caching || false;
+    };
+
     this.getName = function () {
         return injectable.name;
     };
 
     this.getValue = function () {
         return injectable.val;
+    };
+
+    this.getCacheValue = function() {
+        return injectable.cacheValue;
+    };
+
+    this.setCacheValue = function(value) {
+        injectable.cacheValue = value;
+    };
+
+    this.makeCacheable = function() {
+        injectable.caching = true;
+        return this;
     };
 
     return this;
