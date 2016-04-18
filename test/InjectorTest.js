@@ -1,6 +1,9 @@
 var expect = require('expect');
 
 describe("Injector", function () {
+    // Setting timeout for potential slowness with timeouts.
+    this.timeout(5000);
+
     it("throws TypeError when initialScope variable isn't of type InjectorScope", function() {
         var Injector = require('../Injector');
 
